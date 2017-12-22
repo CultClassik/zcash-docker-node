@@ -1,5 +1,5 @@
-# nv-claymore [![Build Status](https://travis-ci.org/CultClassik/nv-claymore-docker.svg?branch=master)](https://travis-ci.org/CultClassik/nv-claymore-docker)
-[Image on Docker Hub](https://hub.docker.com/r/cultclassik/claymore-nv/)
+# nv-claymore [![Build Status](https://travis-ci.org/CultClassik/zcash-docker-node.svg?branch=master)](https://travis-ci.org/CultClassik/zcash-docker-node)
+[Image on Docker Hub](https://hub.docker.com/r/cultclassik/zcash-node/)
 
 Dockerfile to build cultclassik/claymore-nv GPU container.
 
