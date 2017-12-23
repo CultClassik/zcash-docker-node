@@ -1,45 +1,39 @@
-FROM library/debian:wheezy-slim
+FROM library/debian:jessie-slim
 
 MAINTAINER Chris Diehl <cultclassik@gmail.com>
 
 ENV ZEC_URL='https://z.cash/downloads/zcash-1.0.13-linux64.tar.gz'
-ENV ZEC_ROOT='/zcash'
-
-RUN echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+ENV RPC_USER='root'
+ENV PRC_PWD='rootpass'
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
+    libgomp1 \
     apt-transport-https \
+    ca-certificates \
     libcurl3 && \
     rm -rf /var/lib/apt/lists/*
-
-#RUN wget -qO - https://apt.z.cash/zcash.asc | sudo apt-key add - &&\
-#    echo "deb [arch=amd64] https://apt.z.cash/ jessie main" | sudo tee /etc/apt/sources.list.d/zcash.list
-
-#RUN apt-get update && apt-get install -y --no-install-recommends \
-#    zcash && \
-#    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /tmp
 
 RUN wget --no-check-certificate $ZEC_URL
 
-RUN tar -xvf ./*.tar.gz
+RUN tar -xvf ./*.tar.gz -C /usr/local --strip-components 1
+##    mv $ZEC_ROOT/bin/* /usr/local/bin/ &&\
+#    mv $ZEC_ROOT/lib/* /usr/local/lib/ &&\
+#    mv $ZEC_ROOT/share/* /usr/local/share/ &&\
+#    mv $ZEC_ROOT/include /usr/local/
 
-RUN mv -t /usr/local/bin/ zcash-1.0.13/bin/*
+RUN rm -rf ./*.tar.gz
 
 RUN zcash-fetch-params
 
-RUN echo "rpcuser=root" >> ~/.zcash/zcash.conf
+RUN mkdir ~/.zcash &&\
+    echo "rpcuser=${RPC_USER}" >> ~/.zcash/zcash.conf &&\
+    echo "rpcpassword=${RPC_PWD}" >> ~/.zcash/zcash.conf &&\
+    echo "mainnet=1" >> ~/.zcash/zcash.conf &&\
+    echo "addnode=mainnet.z.cash" >> ~/.zcash/zcash.conf
 
-RUN echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.zcash/zcash.conf
+EXPOSE 8232/tcp
 
-RUN echo "mainnet=1" >> ~/.zcash/zcash.conf
-
-RUN echo "addnode=mainnet.z.cash" >> ~/.zcash/zcash.conf
-
-### do conf file
-#RUN zcashd
-
-#CMD [ 'zcash-cli' ]
-CMD ["zcashd"]
+CMD [ "zcashd" ]

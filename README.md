@@ -1,21 +1,19 @@
 # nv-claymore [![Build Status](https://travis-ci.org/CultClassik/zcash-docker-node.svg?branch=master)](https://travis-ci.org/CultClassik/zcash-docker-node)
 [Image on Docker Hub](https://hub.docker.com/r/cultclassik/zcash-node/)
 
-Dockerfile to build cultclassik/claymore-nv GPU container.
+Dockerfile to build cultclassik/zcash-node container.
 
-Incorporates Claymore's dual ETH miner.
+Uses the official binaries from Zcash.
 
-Written to mine ETH on ethermine and LBC on supernova.
-
-
+This container will run a node, you must use a client to connect to it.
 
 ## Pre-requisites
 
-Requires a working installation of Docker CE or EE and Nvidia-Docker2.
+Requires a working installation of Docker CE or EE.
 
 ## Installation
 
-docker build -t cultclassik/ethminer-nv .
+docker build -t cultclassik/zcash-node .
 
 ## Usage
 
