@@ -5,6 +5,8 @@ MAINTAINER Chris Diehl <cultclassik@gmail.com>
 ENV ZEC_URL='https://z.cash/downloads/zcash-1.0.13-linux64.tar.gz'
 ENV ZEC_ROOT='/zcash'
 
+RUN echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     apt-transport-https \
