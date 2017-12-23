@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /tmp
 
-RUN wget $ZEC_URL
+RUN wget --no-check-certificate $ZEC_URL
 
 RUN tar -xvf ./*.tar.gz
 
