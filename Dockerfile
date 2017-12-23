@@ -1,10 +1,10 @@
 FROM library/debian:jessie-slim
 
-MAINTAINER Chris Diehl <cultclassik@gmail.com>
+LABEL maintainer="Chris Diehl <cultclassik@gmail.com>"
 
 ENV ZEC_URL='https://z.cash/downloads/zcash-1.0.13-linux64.tar.gz'
 ENV RPC_USER='root'
-ENV PRC_PWD='rootpass'
+ENV RPC_PASS='rootpass'
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
@@ -18,13 +18,8 @@ WORKDIR /tmp
 
 RUN wget --no-check-certificate $ZEC_URL
 
-RUN tar -xvf ./*.tar.gz -C /usr/local --strip-components 1
-##    mv $ZEC_ROOT/bin/* /usr/local/bin/ &&\
-#    mv $ZEC_ROOT/lib/* /usr/local/lib/ &&\
-#    mv $ZEC_ROOT/share/* /usr/local/share/ &&\
-#    mv $ZEC_ROOT/include /usr/local/
-
-RUN rm -rf ./*.tar.gz
+RUN tar -xvf ./*.tar.gz -C /usr/local --strip-components 1 &&\
+    rm -rf ./*.tar.gz
 
 RUN zcash-fetch-params
 

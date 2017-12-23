@@ -17,7 +17,11 @@ docker build -t cultclassik/zcash-node .
 
 ## Usage
 
-TODO: Write usage instructions
+If you wish to supply a config file, you can do so by adding a volume at runtime.
+Either map a folder to /root/.zcash or file to /root/.zcash/zcash.conf.
+
+This container uses the standard RPC port 8323/tcp.
+The default user and pass are root and rootpass.
 
 ## Contributing
 
